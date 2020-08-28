@@ -15,3 +15,17 @@ function bootstrap_register_scripts() {
 }
 
 add_action( 'wp_enqueue_scripts', 'bootstrap_register_scripts');
+
+function bootstrap_theme_setup() {
+    add_theme_support('menus');
+
+    register_nav_menu('primary', 'Primary Header Navigation');
+}
+
+add_action('init', 'bootstrap_theme_setup');
+
+function add_menuclass($ulclass) {
+    return preg_replace('/<a /', '<a class="nav-link"', $ulclass);
+}
+
+add_filter('wp_nav_menu', 'add_menuclass');
